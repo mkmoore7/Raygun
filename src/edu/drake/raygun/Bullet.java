@@ -7,10 +7,10 @@ import android.widget.RelativeLayout;
 
 public class Bullet {
 	
-	private float xPos;
-	private float yPos;
+	private int xPos;
+	private int yPos;
 	
-	public Bullet(float xPosi, float yPosi, ImageView img, RelativeLayout rl){
+	public Bullet(int xPosi, int yPosi, ImageView img, RelativeLayout rl){
 		xPos = xPosi;
 		yPos = yPosi;
 		img.setImageResource(R.drawable.ic_launcher);
@@ -25,7 +25,7 @@ public class Bullet {
 		yPos = lane;
 	}
 
-	public float getX(){
+	public int getX(){
 		return xPos;
 	}
 

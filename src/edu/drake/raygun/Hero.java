@@ -4,45 +4,45 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-public class Enemy{
+public class Hero {
 
-	private int xPos;
-	private int yPos;
 
-	public Enemy(){
+	private int x;
+	private int y;
 
+	public Hero() {	
+		// TODO Auto-generated constructor stub
 	}
-
 	//creates an enemy and creates the image of the enemy on the screen
-	public Enemy(int xPosi, int lane,ImageView img, RelativeLayout rl){
-		xPos = xPosi;
-		yPos = lane;
-		img.setImageResource(R.drawable.ic_launcher);
+	
+	public Hero(int x, int y, ImageView frank, RelativeLayout rl){
+		
+		
+		frank.setImageResource(R.drawable.raygun);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( 
 				(int) LayoutParams.WRAP_CONTENT, (int) LayoutParams.WRAP_CONTENT);
-		params.setMargins(xPos,yPos,200,200);
-		img.setLayoutParams(params);
-		rl.addView(img);
+		params.setMargins(x,y,100,100);
+		frank.setLayoutParams(params);
+		rl.addView(frank);
 
 		// TODO Auto-generated constructor stub
 	}
 	//same as a "setY" method
 	public void setLane(int lane){
-		yPos = lane;
+		y = lane;
 	}
 
 	public int getX(){
-		return xPos;
-	}
-
-	//Moves our enemy across the screen
-	public void moveLeft(int speed, ImageView img){
-		xPos -= speed;
-		img.setTranslationX(-speed);
+		return x;
 	}
 	
 	public int getY(){
-		return yPos;
+		return y;
+	}
+	
+	public void moveVertical(int speed, ImageView img){
+		y -= speed;
+		img.setTranslationY(-speed);
 	}
 
 }
