@@ -186,31 +186,24 @@ public class Play extends ActionBarActivity {
 					// TODO Auto-generated method stub
 					for(int i = 0; i < enemyIndex; i++){
 						
-						//This if statement is an attempt at a crude collision detection 
-						//if(hero.getY() == enemyArray[i].getY()){
-						//	System.out.print("hit!");
-						//	translation[i] += 10000;
-						//	enemyArray[i].moveLeft(translation[i], cats[i]);
+						//Failed Collision detection code
+						//for(int j = 0; j < bulletIndex; i++){
+							//if(hero.getY() == enemyArray[i].getY()){
+							//	System.out.print("hit!");
+							//	translation[i] += 10000;
+							//	enemyArray[i].moveLeft(translation[i], cats[i]);
+							//	bulletPosition[j] -= 10000;
+							//	bulletArray[j].moveRight(bulletPosition[i], bullets[i]);
 						//}
-						
-						//This just moves the enemy across the screen
+						//This if statement is an attempt at a crude collision detection 			
 						translation[i] += speed;
 						enemyArray[i].moveLeft(translation[i], cats[i]);
 					}
 					//This moves the bullets right
-					for(int i = 0; i < bulletIndex; i++){
-						//Collision detection attempt (Doesn't work well)
-						if(bulletArray[i].getY() == enemyArray[i].getY()){
-							System.out.print("hit!");
-							translation[i] += 10000;
-							enemyArray[i].moveLeft(translation[i], cats[i]);
-							bulletPosition[i] -= 10000;
-							bulletArray[i].moveRight(bulletPosition[i], bullets[i]);
-						}
-						
+					for(int j = 0; j < bulletIndex; j++){	
 						//Regular movement of bullets
-						bulletPosition[i] += speed;
-						bulletArray[i].moveRight(bulletPosition[i], bullets[i]);
+						bulletPosition[j] += speed;
+						bulletArray[j].moveRight(bulletPosition[j], bullets[j]);
 					}
 					
 					//This all creates the enemies on the timer
