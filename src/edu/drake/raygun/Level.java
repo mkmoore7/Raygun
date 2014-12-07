@@ -1,11 +1,17 @@
 package edu.drake.raygun;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupWindow;
 
 
 
@@ -15,6 +21,44 @@ public class Level extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_level);
+		android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+		actionBar.hide();
+		
+		ImageButton dsm = (ImageButton) findViewById(R.id.imageButton1);
+		
+		//set an onClick listener for the des moines button
+		//when clicked it should pull up a pop up of the image explaining the mission. 
+		dsm.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) { 	
+			     View popupView = new View(Level.this);
+			     final PopupWindow popupWindow = new PopupWindow(popupView,
+			     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+			     Drawable drawable = getResources().getDrawable(R.drawable.dsmmissionstatement);
+
+			     popupWindow.setBackgroundDrawable(drawable);
+			     popupWindow.setHeight(700);
+			     popupWindow.setWidth(1200);      
+			     popupWindow.setTouchable(true);
+			     popupWindow.setFocusable(true);
+			     popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+
+			            @Override
+			            public boolean onTouch(View v, MotionEvent event) {
+			        		Intent intent = new Intent(Level.this, Play.class);
+			        		startActivity(intent);
+			                return false;
+			            }
+			        });
+
+
+
+			     popupWindow.showAtLocation(findViewById(R.id.imageButton1), Gravity.CENTER, 0, 0);
+
+				
+			}
+		});
 	}
 
 	@Override

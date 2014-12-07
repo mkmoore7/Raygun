@@ -5,14 +5,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -58,11 +62,13 @@ public class Play extends ActionBarActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_play );
+		android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+		actionBar.hide();
 
 		//create a timer
 		myTimer = new Timer(true);
 		rl = (RelativeLayout) findViewById(R.id.rl);
-		//myTimer.scheduleAtFixedRate(new MyTimerTask(), 5000, 1000);
+		
 		//declare all the arrays with 100 elements
 		enemyArray = new Enemy[100];
 		translation = new int[100];
@@ -86,6 +92,7 @@ public class Play extends ActionBarActivity {
 		for(int i = 0; i < 100; i++){
 			translation[i]=0;
 		}
+		
 		//set up our layout and buttons
 		Button start = (Button)findViewById(R.id.button2);
 		Button stop = (Button)findViewById(R.id.button3);
@@ -94,9 +101,10 @@ public class Play extends ActionBarActivity {
 		Button shoot = (Button)findViewById(R.id.button6);
 		//final Enemy enemy1 = new Enemy(300,img, rl);
 		//enemyArray[0] = enemy1;
-		//message("buttons made");
-
-	
+		
+		
+		//create a popup of the mission statement
+		//createPopUp();
 		
 
 			//Starts all the timer activity stuff when you press the start button
@@ -168,6 +176,30 @@ public class Play extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public void createPopUp(){
+		Button dsm = (Button)findViewById(R.id.button2);
+		message("in createPopUp");
+	     View popupView = new View(Play.this);
+	     final PopupWindow popupWindow = new PopupWindow(popupView,
+	     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+	     Drawable drawable = getResources().getDrawable(R.drawable.dsmmissionstatement);
+
+	     popupWindow.setBackgroundDrawable(drawable);
+	     popupWindow.setHeight(700);
+	     popupWindow.setWidth(1200);      
+	     popupWindow.setTouchable(true);
+	     popupWindow.setFocusable(true);
+	     popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+
+	            @Override
+	            public boolean onTouch(View v, MotionEvent event) {
+					myTimer.scheduleAtFixedRate(new MyTimerTask(), 500, 2000);
+	                return false;
+	            }
+	        });
+	     popupWindow.showAtLocation(dsm, Gravity.CENTER, 0, 0);
 	}
 	
 	private class MyTimerTask extends TimerTask {

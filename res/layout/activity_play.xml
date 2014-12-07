@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background ="@drawable/gameplaybackground" >
  
 
     <Button
@@ -48,14 +49,5 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="14dp"
         android:text="Up" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_above="@+id/button4"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="21dp"
-        android:src="@drawable/raygun" />
  
 </RelativeLayout>

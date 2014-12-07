@@ -6,27 +6,8 @@
     android:paddingLeft="10dp"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.drake.raygun.Level" >
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageButton1"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="40dp"
-        android:layout_toRightOf="@+id/imageButton1"
-        android:src="@drawable/iowacitysaurus" />
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageButton1"
-        android:layout_below="@+id/imageButton1"
-        android:layout_toLeftOf="@+id/imageButton2"
-        android:src="@drawable/chiceratops" />
-
+    tools:context="edu.drake.raygun.Level" 
+    android:background="@drawable/dsmcityscape">
 
     <ImageButton
         android:id="@+id/imageButton1"
@@ -34,7 +15,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:onClick="desMoines"
-        android:src="@drawable/desmoinesdactyl" />
+        android:layout_marginTop="95dp"
+        android:src="@drawable/dsmstartbutton" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton1"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="89dp"
+        android:src="@drawable/chooselocation" />
 
 </RelativeLayout>
