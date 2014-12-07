@@ -17,7 +17,9 @@ public class Enemy{
 	public Enemy(int xPosi, int lane,ImageView img, RelativeLayout rl){
 		xPos = xPosi;
 		yPos = lane;
-		img.setImageResource(R.drawable.ic_launcher);
+		
+		//we need to figure out how to get the enemy to change.
+		img.setImageResource(R.drawable.zombieburger);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( 
 				(int) LayoutParams.WRAP_CONTENT, (int) LayoutParams.WRAP_CONTENT);
 		params.setMargins(xPos,yPos,200,200);

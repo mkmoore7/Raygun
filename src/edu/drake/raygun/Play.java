@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -114,9 +115,7 @@ public class Play extends ActionBarActivity {
 				myTimer.scheduleAtFixedRate(new MyTimerTask(), 500, 2000);
 			}
 		});
-		
-		
-		
+
 		
 		
 		stop.setOnClickListener(new View.OnClickListener() {

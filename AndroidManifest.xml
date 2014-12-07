@@ -30,6 +30,10 @@
             android:name=".Play"
             android:label="@string/title_activity_play" >
         </activity>
+        <activity
+            android:name=".GameOver"
+            android:label="@string/title_activity_game_over" >
+        </activity>
     </application>
 
 </manifest>
