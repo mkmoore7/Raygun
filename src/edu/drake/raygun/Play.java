@@ -1,11 +1,11 @@
 package edu.drake.raygun;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -34,12 +33,12 @@ public class Play extends ActionBarActivity {
 	int randInt;				//rand integer to set lanes
 	int enemyIndex = 0;			//set up index of arrays 
 	int killedEnemy = -1;
-	int[] translation;			//array of the xvalues for enemies so that they can get translated left
-	ImageView[] cats;			//array of images of enemies, this makes sure that the images are moving on screen
-	Enemy dummyEnemy;			//object
-	Enemy[] enemyArray;			//array of all the enemies
-	Bullet[] bulletArray;		
-	ImageView[] bullets;
+	//int[] translation;			//array of the xvalues for enemies so that they can get translated left
+	//ImageView[] cats;			//array of images of enemies, this makes sure that the images are moving on screen
+	//Enemy dummyEnemy;			//object
+	//Enemy[] enemyArray;			//array of all the enemies
+	//Bullet[] bulletArray;		
+	//ImageView[] bullets;
 	int[] bulletPosition;
 	int bulletIndex = 0;
 	int pos = 0;
@@ -48,6 +47,13 @@ public class Play extends ActionBarActivity {
 	int xBull;
 	int yBull;
 	Hero hero;
+	
+	ArrayList<Enemy> enemyArray;
+	ArrayList<Bullet> bulletArray;
+	ArrayList<Integer> translation;
+	ArrayList<Integer> bulletPos;
+	ArrayList<ImageView> cats;
+	ArrayList<ImageView> bullets;
 	
 
 
@@ -70,6 +76,7 @@ public class Play extends ActionBarActivity {
 		myTimer = new Timer(true);
 		rl = (RelativeLayout) findViewById(R.id.rl);
 		
+		/*
 		//declare all the arrays with 100 elements
 		enemyArray = new Enemy[100];
 		translation = new int[100];
@@ -80,6 +87,17 @@ public class Play extends ActionBarActivity {
 		bulletArray = new Bullet[100];
 		bulletPosition = new int[100];
 		bullets = new ImageView[100];
+		*/
+		
+		//Create arraylists for everything
+		enemyArray = new ArrayList<Enemy>();
+		bulletArray = new ArrayList<Bullet>();
+		translation = new ArrayList<Integer>();
+		bulletPos = new ArrayList<Integer>();
+		cats = new ArrayList<ImageView>();
+		bullets = new ArrayList<ImageView>();
+		
+		
 		
 		frank = new ImageView (Play.this);
 		System.out.println("Created frank");		
@@ -90,9 +108,9 @@ public class Play extends ActionBarActivity {
 		System.out.println("Created Hero");
 		
 		//initializes our translation array with 0's
-		for(int i = 0; i < 100; i++){
-			translation[i]=0;
-		}
+		//for(int i = 0; i < 100; i++){
+		//	translation[i]=0;
+		//}
 		
 		//set up our layout and buttons
 		Button start = (Button)findViewById(R.id.button2);
@@ -159,10 +177,10 @@ public class Play extends ActionBarActivity {
 							
 				//create bullet, update all the arrays and index
 				Bullet bullet = new Bullet(xBull,yBull,img,rl);
-				bullets[bulletIndex] = img;						//sets image for the enemy
+				bullets.add(img);						//sets image for the enemy
 				//message("enemy created" );
-				bulletArray[bulletIndex] = bullet;
-				bulletIndex+=1;
+				bulletArray.add(bullet);
+				bulletPos.add(0);
 			
 				    			
 			}
@@ -215,26 +233,24 @@ public class Play extends ActionBarActivity {
 				public void run() {
 					
 					// TODO Auto-generated method stub
-					for(int i = 0; i < enemyIndex; i++){
-						
-						//Failed Collision detection code
-						//for(int j = 0; j < bulletIndex; i++){
-							//if(hero.getY() == enemyArray[i].getY()){
-							//	System.out.print("hit!");
-							//	translation[i] += 10000;
-							//	enemyArray[i].moveLeft(translation[i], cats[i]);
-							//	bulletPosition[j] -= 10000;
-							//	bulletArray[j].moveRight(bulletPosition[i], bullets[i]);
-						//}
-						//This if statement is an attempt at a crude collision detection 			
-						translation[i] += speed;
-						enemyArray[i].moveLeft(translation[i], cats[i]);
+					for(int i = 0; i < enemyArray.size(); i++){
+						Enemy enemy1 = enemyArray.get(i);
+						Integer dummySpeed;
+						dummySpeed = translation.get(i);
+						dummySpeed += speed;
+						//System.out.print("Moved enemy");
+						translation.set(i,dummySpeed);	
+						//System.out.print("enemy move set");
+						enemy1.moveLeft(translation.get(i), cats.get(i));
 					}
 					//This moves the bullets right
-					for(int j = 0; j < bulletIndex; j++){	
-						//Regular movement of bullets
-						bulletPosition[j] += speed;
-						bulletArray[j].moveRight(bulletPosition[j], bullets[j]);
+					for(int j = 0; j < bulletArray.size(); j++){	
+						Bullet bullet1 = bulletArray.get(j);
+						Integer dummySpeed;
+						dummySpeed = bulletPos.get(j);
+						dummySpeed += speed;
+						bulletPos.set(j, dummySpeed);
+						bulletArray.get(j).moveRight(bulletPos.get(j), bullets.get(j));
 					}
 					
 					//This all creates the enemies on the timer
@@ -267,11 +283,12 @@ public class Play extends ActionBarActivity {
 								
 					//create enemy, update all the arrays and index
 					Enemy enemy = new Enemy(xPos,yPos,img,rl);
-					cats[enemyIndex] = img;						//sets image for the enemy
+					cats.add(img);						//sets image for the enemy
 					//message("enemy created" );
-					enemyArray[enemyIndex] = enemy;
-					enemyIndex+=1;
-					killedEnemy++;
+					enemyArray.add(enemy);
+					translation.add(0);
+					//enemyIndex+=1;
+					//killedEnemy++;
 					
 					//System.out.print("Frank:" + hero.getY());
 				}
