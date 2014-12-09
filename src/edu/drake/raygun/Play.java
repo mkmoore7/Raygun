@@ -99,8 +99,6 @@ public class Play extends ActionBarActivity {
 		enemyArray = new Enemy[100];
 		translation = new int[100];
 		cats = new ImageView[100];
-
-
 		//Creates everything for the bullets 
 		bulletArray = new Bullet[100];
 		bulletPosition = new int[100];
