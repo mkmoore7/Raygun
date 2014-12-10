@@ -71,6 +71,7 @@ public class Play2 extends ActionBarActivity {
 
 		//TODO: Add the bullet timer, but for now, just run it all from the enemy timer.
 		enemyTimer.scheduleAtFixedRate(new MyTimerTask(), 500, 2000);
+		bulletTimer.scheduleAtFixedRate(new MyTimerTask2(), 500, 500);
 
 		stop.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -167,9 +168,9 @@ public class Play2 extends ActionBarActivity {
 		enemyTrans.add(0);
 		System.out.println(enemyTrans);
 	}
-	private class MyTimerTask extends TimerTask {
+	
+	private class MyTimerTask2 extends TimerTask {
 
-		int count =0;
 		@Override
 		public void run() {
 			// This calls the timer on special "timer" thread
@@ -177,7 +178,52 @@ public class Play2 extends ActionBarActivity {
 			runOnUiThread(new Runnable() {     //This tells the computer that when a timer event happens, update the user interface thread
 
 				int speed = 75;
-				ImageSprite enemy, bullet;
+				ImageSprite bullet;
+				@Override
+				public void run() {
+					
+					//move the bullets
+					
+					for (int k=0; k<bulletArray.size(); k++){
+						bullet = bulletArray.get(k);
+						Integer dummySpeed;
+						dummySpeed = bulletTrans.get(k);
+						dummySpeed += speed;
+						bulletTrans.set(k, dummySpeed);
+						bullet.moveHorizontal(-bulletTrans.get(k), bullet.img);
+					}
+					
+					//Check for Collisions
+					//for(int m=0; m< bulletArray.size(); m++){
+					//	for(int n=0; n<enemyArray.size(); n++){
+					//		if(bulletArray.get(m).collidesWith(enemyArray.get(n))){
+					//			bulletArray.get(m).img.setVisibility(View.GONE);
+					//			enemyArray.get(n).img.setVisibility(View.GONE);
+					//		}
+					//	}
+
+					//}
+					
+					
+				}
+
+			});
+
+		}
+
+	}
+	
+	
+	private class MyTimerTask extends TimerTask {
+
+		@Override
+		public void run() {
+			// This calls the timer on special "timer" thread
+			//goes through all the enemies, advances them left across the screen
+			runOnUiThread(new Runnable() {     //This tells the computer that when a timer event happens, update the user interface thread
+
+				int speed = 75;
+				ImageSprite enemy;
 				@Override
 				public void run() {
 					
@@ -192,30 +238,7 @@ public class Play2 extends ActionBarActivity {
 						//System.out.print("Moved enemy");
 						enemyTrans.set(i,dummySpeed);	
 						enemy.moveHorizontal(enemyTrans.get(i), enemy.img);
-					}
-					//move the bullets
-					
-					for (int k=0; k<bulletArray.size(); k++){
-						bullet = bulletArray.get(k);
-						Integer dummySpeed;
-						dummySpeed = bulletTrans.get(k);
-						dummySpeed += speed;
-						bulletTrans.set(k, dummySpeed);
-						bullet.moveHorizontal(-bulletTrans.get(k), bullet.img);
-					}
-					
-					//Check for Collisions
-					for(int m=0; m< bulletArray.size(); m++){
-						for(int n=0; n<enemyArray.size(); n++){
-							if(bulletArray.get(m).collidesWith(enemyArray.get(n))){
-								bulletArray.get(m).img.setVisibility(View.GONE);
-								enemyArray.get(n).img.setVisibility(View.GONE);
-							}
-						}
-
-					}
-					
-					
+					}			
 				}
 
 			});
