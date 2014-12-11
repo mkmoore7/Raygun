@@ -44,6 +44,10 @@ public class Play extends ActionBarActivity {
 	ArrayList<ImageView> cats;
 	ArrayList<ImageView> bullets;
 	
+	int centerXOnEnemy;
+    int centerYOnEnemy;
+    int centerXOnBullet;
+    int centerYOnBullet;
 	
 	// Not used, were used in failed collision attempt
 	//ArrayList<Integer> bulhitcount;
@@ -187,6 +191,9 @@ public class Play extends ActionBarActivity {
 				bullets.add(img);						//sets image for the enemy
 				bulletArray.add(bullet);
 				bulletPos.add(0);
+				
+				centerXOnBullet=img.getWidth()/2;
+			    centerYOnBullet=img.getHeight()/2;
 
 
 			}
@@ -241,6 +248,9 @@ public class Play extends ActionBarActivity {
 					// TODO Auto-generated method stub
 					for(int i = 0; i < enemyArray.size(); i++){
 						Enemy enemy1 = enemyArray.get(i);
+						ImageView img = cats.get(i);
+						centerXOnEnemy=img.getWidth()/2;
+						Integer translations = translation.get(i);
 						Integer dummySpeed;
 						dummySpeed = translation.get(i);
 						dummySpeed += speed;
@@ -248,26 +258,82 @@ public class Play extends ActionBarActivity {
 						translation.set(i,dummySpeed);	
 						//System.out.print("enemy move set");
 						enemy1.moveLeft(translation.get(i), cats.get(i));
+						int centerXOfEnemyOnScreen=img.getLeft()+centerXOnEnemy - dummySpeed;
+						
+						
+						
+						if(centerXOfEnemyOnScreen <= 200){
+					    	enemyArray.remove(enemy1);
+				
+					    	
+					    	translation.set(i,0);
+							translation.remove(translations);
+				
+							img.setVisibility(View.GONE);
+							cats.remove(img);
+							message("Enemy off screen");
+					    }
 					}
 					//This moves the bullets right
 					for(int j = 0; j < bulletArray.size(); j++){	
-						Bullet bullet1 = bulletArray.get(j);
-						Integer dummySpeed;
-						dummySpeed = bulletPos.get(j);
+						//Regular movement of bullets
+						Bullet bullet = bulletArray.get(j);
+						ImageView img = bullets.get(j);
+						Integer bull = bulletPos.get(j);
+						Integer dummySpeed = 0;
+						dummySpeed = bull;
+						System.out.println("dummySpeed = " + dummySpeed);
 						dummySpeed += speed;
 						bulletPos.set(j, dummySpeed);
-						bulletArray.get(j).moveRight(bulletPos.get(j), bullets.get(j));
+						dummySpeed = bulletPos.get(j);
+						bulletArray.get(j).moveRight(dummySpeed, img);
 						
-						/*
+						System.out.println(img.getLeft());
+						int centerXOfBulletOnScreen=img.getLeft()+centerXOnBullet + dummySpeed;
+					    int centerYOfBulletOnScreen=img.getTop()+centerYOnBullet;	
+					    
+					    
+					    //tells if bullet if off screen
+					    if(centerXOfBulletOnScreen >= 1200){
+					    	bulletArray.remove(bullet);    	
+					    	bulletPos.set(j, 0);
+							bulletPos.remove(bull);
+							img.setVisibility(View.GONE);
+							bullets.remove(img);
+							message("bullet off screen");
+					    }
+					    
+					    
+					    System.out.println("number of bullets: " +  bulletArray.size() );
+						
 						for(int i = 0; i < enemyArray.size(); i++){
-							if(bulletArray.get(j).getY() == enemyArray.get(i).getY()){	
-								if(bulletArray.get(j).getX() >= enemyArray.get(i).getX())  {
-									bulhitcount.add(j);
-									enehitcount.add(i);
+							Enemy enemy1 = enemyArray.get(i);
+							ImageView img1 = cats.get(i);
+							Integer translations = translation.get(i);
+							int centerXOfEnemyOnScreen=img1.getLeft()+centerXOnEnemy - translations;
+						    int centerYOfEnemyOnScreen=img1.getTop()+centerYOnEnemy;	
+						    
+							if(centerYOfBulletOnScreen == centerYOfEnemyOnScreen){	
+								System.out.println("hit");
+								//System.out.println (centerXOfBulletOnScreen + " , " + centerXOfEnemyOnScreen);
+								
+								if(centerXOfBulletOnScreen >= centerXOfEnemyOnScreen)  {
+									System.out.println("major hit");
+									enemyArray.remove(enemy1);
+									img1.setVisibility(View.GONE);
+									cats.remove(img1);	
+									translation.set(i, 0);
+									translation.remove(translations);
+									
+									
+									bulletArray.remove(bullet);
+									bulletPos.set(j, 0);
+									bulletPos.remove(bull);
+									img.setVisibility(View.GONE);
+									bullets.remove(img);
 								}
 							}
 						}
-						*/
 					}
 					
 					
@@ -318,6 +384,8 @@ public class Play extends ActionBarActivity {
 					enemyArray.add(enemy);
 					translation.add(0);
 					//enemyIndex+=1;
+					centerXOnEnemy=img.getWidth()/2;
+				    centerYOnEnemy=img.getHeight()/2;
 					
 				}
 

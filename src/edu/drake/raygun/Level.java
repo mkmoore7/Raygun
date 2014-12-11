@@ -50,7 +50,7 @@ public class Level extends ActionBarActivity {
 			            public boolean onTouch(View v, MotionEvent event) {
 			            	
 //CHANGE THIS LINE IF YOU WANT TO RUN THE OLD play.java file ----------v			            	
-			        		Intent intent = new Intent(Level.this, Play2.class);
+			        		Intent intent = new Intent(Level.this, Play.class);
 			        		startActivity(intent);
 			                return false;
 			            }
