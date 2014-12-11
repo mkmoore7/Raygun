@@ -32,5 +32,42 @@
         android:layout_alignParentRight="true"
         android:background="@null"
         android:src="@drawable/shootbutton" />
+    
+     <ImageView 
+        android:id="@+id/life1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/lives" />
+    
+    <ImageView 
+        android:id="@+id/life2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/life1"
+        android:layout_marginLeft="75dp"
+        android:src="@drawable/lives" />
+    
+    <ImageView 
+        android:id="@+id/life3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/life2"
+        android:layout_marginLeft="150dp"
+        android:src="@drawable/lives" />
+    
+    <TextView 
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight = "80dp"
+        android:text="Score: " />
  
 </RelativeLayout>
