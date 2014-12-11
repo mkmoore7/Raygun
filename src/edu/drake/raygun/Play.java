@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -46,6 +47,9 @@ public class Play extends ActionBarActivity {
     int centerYOnEnemy;
     int centerXOnBullet;
     int centerYOnBullet;
+    
+    TextView scoreCount = (TextView)findViewById(R.id.score);
+    int points = 0;
 	
 	// Not used, were used in failed collision attempt
 	//ArrayList<Integer> bulhitcount;
@@ -157,7 +161,12 @@ public class Play extends ActionBarActivity {
 				
 				centerXOnBullet=img.getWidth()/2;
 			    centerYOnBullet=img.getHeight()/2;
-
+			    
+			    // Meant to update the score but seems to make the program crash
+			    /*
+			    points = points + 100;
+			    scoreCount.setText("Score: " + points);
+				*/
 
 			}
 		});
