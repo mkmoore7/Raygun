@@ -6,17 +6,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -24,7 +20,7 @@ import android.widget.Toast;
 
 public class Play extends ActionBarActivity {
 
-	Timer myTimer, myTimer2;				// create timer
+	Timer enemyTimer, bulletTimer;				// create timer
 	RelativeLayout rl;          //create layout to add images to
 	ImageView img;  			//declare imageView
 	ImageView frank;			//image of hero
@@ -85,12 +81,13 @@ public class Play extends ActionBarActivity {
 		actionBar.hide();
 
 		//Start the timers
-		myTimer = new Timer(true);
-		myTimer2 = new Timer(true);
+		enemyTimer = new Timer(true);
+		bulletTimer = new Timer(true);
 		rl = (RelativeLayout) findViewById(R.id.rl);
 		
-		//start timer 2
-		myTimer2.scheduleAtFixedRate(new MyTimerTask(), 500, 900);
+		//start timers
+		enemyTimer.scheduleAtFixedRate(new MyTimerTask(), 800, 900);
+		bulletTimer.scheduleAtFixedRate(new MyTimerTask2(), 250, 900);
 
 		
 		rl = (RelativeLayout) findViewById(R.id.rl);
@@ -114,18 +111,10 @@ public class Play extends ActionBarActivity {
 
 
 		//set up our layout and buttons
-		Button start = (Button)findViewById(R.id.button2);
-		Button stop = (Button)findViewById(R.id.button3);
-		Button Up = (Button)findViewById(R.id.button4);
-		Button Down = (Button)findViewById(R.id.button5);
-		Button shoot = (Button)findViewById(R.id.button6);
+		ImageButton Up = (ImageButton)findViewById(R.id.imageButton1);
+		ImageButton Down = (ImageButton)findViewById(R.id.imageButton2);
+		ImageButton shoot = (ImageButton)findViewById(R.id.imageButton3);
 
-		stop.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) { 		
-				myTimer.cancel();
-			}
-		});
 
 		//moves hero up
 		Up.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +147,7 @@ public class Play extends ActionBarActivity {
 				
 				//Set set x, y for bullet as the same as that of the hero
 				xBull = 400;
-				yBull = (int) frank.getY();		
+				yBull = (int) frank.getY()+120;		
 
 				//create bullet, update all the arrays and index
 				Bullet bullet = new Bullet(xBull,yBull,img,rl);
@@ -182,31 +171,6 @@ public class Play extends ActionBarActivity {
 		return true;
 	}
 
-	public void createPopUp(){
-		Button dsm = (Button)findViewById(R.id.button2);
-		message("in createPopUp");
-		View popupView = new View(Play.this);
-		final PopupWindow popupWindow = new PopupWindow(popupView,
-				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		Drawable drawable = getResources().getDrawable(R.drawable.dsmmission);
-
-		popupWindow.setBackgroundDrawable(drawable);
-		popupWindow.setHeight(700);
-		popupWindow.setWidth(1200);      
-		popupWindow.setTouchable(true);
-		popupWindow.setFocusable(true);
-		popupWindow.setTouchInterceptor(new View.OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				myTimer.scheduleAtFixedRate(new MyTimerTask(), 500, 2000);
-				return false;
-			}
-		});
-		popupWindow.showAtLocation(dsm, Gravity.CENTER, 0, 0);
-	}
-
-	
 	private class MyTimerTask2 extends TimerTask {
 		@Override
 		public void run() {
@@ -235,12 +199,9 @@ public class Play extends ActionBarActivity {
 						enemy1.moveLeft(translation.get(i), cats.get(i));
 						int centerXOfEnemyOnScreen=img.getLeft()+centerXOnEnemy - dummySpeed;
 						
-						
-						
 						if(centerXOfEnemyOnScreen <= 200){
 					    	enemyArray.remove(enemy1);
 				
-					    	
 					    	translation.set(i,0);
 							translation.remove(translations);
 				
@@ -249,6 +210,7 @@ public class Play extends ActionBarActivity {
 							message("Enemy off screen");
 					    }
 					}
+					
 					//set the image for enemy
 					img = new ImageView (Play.this);
 					//System.out.print("Is this making the image?");
@@ -281,44 +243,12 @@ public class Play extends ActionBarActivity {
 					System.out.print("enemy created in code");
 					cats.add(img);	
 					System.out.print("enemy created on screen");//sets image for the enemy
-					//message("enemy created" );
+					message("enemy created" );
 					enemyArray.add(enemy);
 					translation.add(0);
 					centerXOnEnemy=img.getWidth()/2;
 				    centerYOnEnemy=img.getHeight()/2;
 					
-					
-					/*
-					for(int i = 0; i < bulhitcount.size(); i++){
-						bulletArray.remove(bulletArray.get(i));
-						bulletPos.remove(bulletPos.get(i));
-						bullets.remove(bullets.get(i));
-					}
-					for(int j = 0; j < enehitcount.size(); j++){
-						enemyArray.remove(enemyArray.get(j));
-						translation.remove(translation.get(j));
-						cats.remove(cats.get(j));
-					}
-					*/
-					
-					//for(Bullet B: bulletArray){
-					//	for(Enemy E: enemyArray){
-					//		if(B.getY() == E.getY()){
-					//			if (B.getX() >= E.getX()){
-					//				System.out.println("hit");
-					//				bulletArray.remove(B);
-					//				enemyArray.remove(E);
-					//				
-					//			}
-					//		}
-					//	}
-					//}
-
-
-					//System.out.print("Frank:" + hero.getY());
-				
-
-				// TODO Auto-generated method stub
 				}
 
 			});

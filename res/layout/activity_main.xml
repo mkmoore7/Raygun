@@ -6,17 +6,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.drake.raygun.MainActivity" >
+    tools:context="edu.drake.raygun.MainActivity" 
+    android:background="@drawable/homebg">
 
     <ImageButton
         android:id="@+id/imageButton1"
-        android:layout_width="600dp"
-        android:layout_height="1200dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="118dp"
-        android:onClick="sendMessage1"
-        android:scaleType="fitXY"
-        android:src="@drawable/raygun" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="129dp"
+        android:src="@drawable/homeplaybtn" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/leaderboardhome" />
 
 </RelativeLayout>

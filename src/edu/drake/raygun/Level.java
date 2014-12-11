@@ -32,6 +32,16 @@ public class Level extends ActionBarActivity {
 				startActivity(intent);
 			}
 		});
+		
+		ImageButton rightArrow = (ImageButton) findViewById(R.id.imageButton2);
+		rightArrow.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) { 		
+				Intent intent = new Intent(Level.this, KC.class);
+				startActivity(intent);
+			}
+		});
+		
 		//Commented out the pop-up code. f
 		
 		//set an onClick listener for the des moines button

@@ -7,16 +7,43 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.drake.raygun.Level" 
-    android:background="@drawable/dsmcitybg">
+    android:background="@drawable/chooselocbg">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/imageButton2"
+        android:layout_marginTop="33dp"
+        android:src="@drawable/lockedarrowleft" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="145dp"
+        android:background="@null"
+        android:src="@drawable/rightarrowsel" />
 
     <ImageButton
         android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="95dp"
-        android:src="@drawable/dsmtxtsel" />
+        android:layout_alignBottom="@+id/imageButton2"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_marginBottom="61dp"
+        android:src="@drawable/playdsmlocsel" />
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageButton1"
+        android:layout_alignLeft="@+id/imageView2"
+        android:layout_marginLeft="79dp"
+        android:src="@drawable/dsm" />
 
 </RelativeLayout>

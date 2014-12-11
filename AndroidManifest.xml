@@ -47,6 +47,14 @@
             android:name=".Mission"
             android:label="@string/title_activity_mission" >
         </activity>
+        <activity
+            android:name=".Leaderboard"
+            android:label="@string/title_activity_leaderboard" >
+        </activity>
+        <activity
+            android:name=".KC"
+            android:label="@string/title_activity_kc" >
+        </activity>
     </application>
 
 </manifest>
