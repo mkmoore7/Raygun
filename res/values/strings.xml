@@ -8,5 +8,6 @@
     <string name="title_activity_play">Play</string>
     <string name="title_activity_game_over">GameOver</string>
     <string name="title_activity_play2">Play2</string>
+    <string name="title_activity_mission">Mission</string>
 
 </resources>

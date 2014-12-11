@@ -28,11 +28,11 @@ public class ImageSprite {
 		}
 		//hero
 		else if(type =='h'){
-			img.setImageResource(R.drawable.raygun2);
+			img.setImageResource(R.drawable.cat);
 		}
 		//bullet
 		else if(type =='b'){
-			img.setImageResource(R.drawable.ic_launcher);
+			img.setImageResource(R.drawable.bullet);
 		}
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( 
 				(int) LayoutParams.WRAP_CONTENT, (int) LayoutParams.WRAP_CONTENT);

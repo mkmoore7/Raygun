@@ -20,9 +20,11 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+
+
 public class Play extends ActionBarActivity {
 
-	Timer myTimer;				// create timer
+	Timer myTimer, myTimer2;				// create timer
 	RelativeLayout rl;          //create layout to add images to
 	ImageView img;  			//declare imageView
 	ImageView frank;			//image of hero
@@ -82,8 +84,15 @@ public class Play extends ActionBarActivity {
 		android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 		actionBar.hide();
 
-		//create a timer
+		//Start the timers
 		myTimer = new Timer(true);
+		myTimer2 = new Timer(true);
+		rl = (RelativeLayout) findViewById(R.id.rl);
+		
+		//start timer 2
+		myTimer2.scheduleAtFixedRate(new MyTimerTask(), 500, 900);
+
+		
 		rl = (RelativeLayout) findViewById(R.id.rl);
 
 		//Create arraylists for everything
@@ -94,20 +103,6 @@ public class Play extends ActionBarActivity {
 		cats = new ArrayList<ImageView>();
 		bullets = new ArrayList<ImageView>();
 		
-		//Used in failed collision attempt
-		//bulhitcount = new ArrayList<Integer>();
-		//enehitcount = new ArrayList<Integer> ();
-
-		/* We don't use this anymore, left it just in case
-		//declare all the arrays with 100 elements
-		enemyArray = new Enemy[100];
-		translation = new int[100];
-		cats = new ImageView[100];
-		//Creates everything for the bullets 
-		bulletArray = new Bullet[100];
-		bulletPosition = new int[100];
-		bullets = new ImageView[100];
-		 */
 
 		frank = new ImageView (Play.this);
 		System.out.println("Created frank");		
@@ -117,10 +112,6 @@ public class Play extends ActionBarActivity {
 		hero = new Hero(x,y,frank,rl);
 		System.out.println("Created Hero");
 
-		//initializes our translation array with 0's
-		//for(int i = 0; i < 100; i++){
-		//	translation[i]=0;
-		//}
 
 		//set up our layout and buttons
 		Button start = (Button)findViewById(R.id.button2);
@@ -128,23 +119,6 @@ public class Play extends ActionBarActivity {
 		Button Up = (Button)findViewById(R.id.button4);
 		Button Down = (Button)findViewById(R.id.button5);
 		Button shoot = (Button)findViewById(R.id.button6);
-		//final Enemy enemy1 = new Enemy(300,img, rl);
-		//enemyArray[0] = enemy1;
-
-
-		//create a popup of the mission statement
-		//createPopUp();
-
-
-		//Starts all the timer activity stuff when you press the start button
-		start.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) { 		
-				myTimer.scheduleAtFixedRate(new MyTimerTask(), 500, 2000);
-			}
-		});
-
-
 
 		stop.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -214,7 +188,7 @@ public class Play extends ActionBarActivity {
 		View popupView = new View(Play.this);
 		final PopupWindow popupWindow = new PopupWindow(popupView,
 				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		Drawable drawable = getResources().getDrawable(R.drawable.dsmmissionstatement);
+		Drawable drawable = getResources().getDrawable(R.drawable.dsmmission);
 
 		popupWindow.setBackgroundDrawable(drawable);
 		popupWindow.setHeight(700);
@@ -232,20 +206,21 @@ public class Play extends ActionBarActivity {
 		popupWindow.showAtLocation(dsm, Gravity.CENTER, 0, 0);
 	}
 
-	private class MyTimerTask extends TimerTask {
-
-		int count =0;
+	
+	private class MyTimerTask2 extends TimerTask {
 		@Override
 		public void run() {
+			System.out.print("Make it in here?");
 			// This calls the timer on special "timer" thread
 			//goes through all the enemies, advances them left across the screen
-			runOnUiThread(new Runnable() {         //This tells the computer that when a timer event happens, update the user interface thread
-				int speed = 75;
+			runOnUiThread(new Runnable() {   
+				//This tells the computer that when a timer event happens, update the user interface thread
+				Integer speed = 75;
 
 				@Override
 				public void run() {
 
-					// TODO Auto-generated method stub
+
 					for(int i = 0; i < enemyArray.size(); i++){
 						Enemy enemy1 = enemyArray.get(i);
 						ImageView img = cats.get(i);
@@ -274,6 +249,96 @@ public class Play extends ActionBarActivity {
 							message("Enemy off screen");
 					    }
 					}
+					//set the image for enemy
+					img = new ImageView (Play.this);
+					//System.out.print("Is this making the image?");
+					//get the random number for the lane, initialize our xPos for the enemies.
+					Random rand = new Random();
+					randInt = rand.nextInt();
+					flag = Math.abs(randInt%4);
+					//message("flag is set: " + flag);
+					xPos = 1150;
+
+					//depending on the random number generated, assigns the correct lane
+					if (flag==0)
+					{
+						yPos=200;					
+					}
+					else
+						if(flag==1)
+						{
+							yPos=300;
+						}
+						else
+							if(flag==2)
+							{
+								yPos=400;
+							}
+
+
+					//create enemy, update all the arrays and index
+					Enemy enemy = new Enemy(xPos,yPos,img,rl);
+					System.out.print("enemy created in code");
+					cats.add(img);	
+					System.out.print("enemy created on screen");//sets image for the enemy
+					//message("enemy created" );
+					enemyArray.add(enemy);
+					translation.add(0);
+					centerXOnEnemy=img.getWidth()/2;
+				    centerYOnEnemy=img.getHeight()/2;
+					
+					
+					/*
+					for(int i = 0; i < bulhitcount.size(); i++){
+						bulletArray.remove(bulletArray.get(i));
+						bulletPos.remove(bulletPos.get(i));
+						bullets.remove(bullets.get(i));
+					}
+					for(int j = 0; j < enehitcount.size(); j++){
+						enemyArray.remove(enemyArray.get(j));
+						translation.remove(translation.get(j));
+						cats.remove(cats.get(j));
+					}
+					*/
+					
+					//for(Bullet B: bulletArray){
+					//	for(Enemy E: enemyArray){
+					//		if(B.getY() == E.getY()){
+					//			if (B.getX() >= E.getX()){
+					//				System.out.println("hit");
+					//				bulletArray.remove(B);
+					//				enemyArray.remove(E);
+					//				
+					//			}
+					//		}
+					//	}
+					//}
+
+
+					//System.out.print("Frank:" + hero.getY());
+				
+
+				// TODO Auto-generated method stub
+				}
+
+			});
+
+		}
+
+	}
+
+	private class MyTimerTask extends TimerTask {
+		@Override
+		public void run() {
+			//System.out.print("Make it in here?");
+			// This calls the timer on special "timer" thread
+			//goes through all the enemies, advances them left across the screen
+			runOnUiThread(new Runnable() {   
+				//This tells the computer that when a timer event happens, update the user interface thread
+				Integer speed = 80;
+
+				@Override
+				public void run() {
 					//This moves the bullets right
 					for(int j = 0; j < bulletArray.size(); j++){	
 						//Regular movement of bullets
@@ -335,60 +400,7 @@ public class Play extends ActionBarActivity {
 							}
 						}
 					}
-					
-					
-					/*        Failed simple collision detection
-					for(int i = 0; i < bulhitcount.size(); i++){
-						bulletArray.remove(bulletArray.get(i));
-						bulletPos.remove(bulletPos.get(i));
-						bullets.remove(bullets.get(i));
-					}
-					for(int j = 0; j < enehitcount.size(); j++){
-						enemyArray.remove(enemyArray.get(j));
-						translation.remove(translation.get(j));
-						cats.remove(cats.get(j));
-					}
-					 */
-
-					//This all creates the enemies on the timer
-
-					//set the image for enemy
-					img = new ImageView (Play.this);
-					//get the random number for the lane, initialize our xPos for the enemies.
-					Random rand = new Random();
-					randInt = rand.nextInt();
-					flag = Math.abs(randInt%4);
-					xPos = 1150;
-
-					//depending on the random number generated, assigns the correct lane
-					if (flag==0)
-					{
-						yPos=200;					
-					}
-					else
-						if(flag==1)
-						{
-							yPos=300;
-						}
-						else
-							if(flag==2)
-							{
-								yPos=400;
-							}
-
-
-					//create enemy, update all the arrays and index
-					Enemy enemy = new Enemy(xPos,yPos,img,rl);
-					cats.add(img);						//sets image for the enemy
-					//message("enemy created" );
-					enemyArray.add(enemy);
-					translation.add(0);
-					//enemyIndex+=1;
-					centerXOnEnemy=img.getWidth()/2;
-				    centerYOnEnemy=img.getHeight()/2;
-					
 				}
-
 				// TODO Auto-generated method stub
 
 			});

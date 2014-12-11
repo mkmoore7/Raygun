@@ -15,8 +15,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" 
-            android:screenOrientation="landscape">
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,23 +25,27 @@
         </activity>
         <activity
             android:name=".Level"
-            android:label="@string/title_activity_level" 
-            android:screenOrientation="landscape">
+            android:label="@string/title_activity_level"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".Play"
-            android:label="@string/title_activity_play" 
-            android:screenOrientation="landscape">
+            android:label="@string/title_activity_play"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".GameOver"
-            android:label="@string/title_activity_game_over" 
-            android:screenOrientation="landscape">
+            android:label="@string/title_activity_game_over"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".Play2"
-            android:label="@string/title_activity_play2" 
-            android:screenOrientation="landscape">
+            android:label="@string/title_activity_play2"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".Mission"
+            android:label="@string/title_activity_mission" >
         </activity>
     </application>
 

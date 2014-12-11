@@ -18,7 +18,7 @@ public class Hero {
 	public Hero(int x, int y, ImageView frank, RelativeLayout rl){
 		
 		
-		frank.setImageResource(R.drawable.raygun2);
+		frank.setImageResource(R.drawable.cat);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( 
 				(int) LayoutParams.WRAP_CONTENT, (int) LayoutParams.WRAP_CONTENT);
 		params.setMargins(x,y,100,100);
